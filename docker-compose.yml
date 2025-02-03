@@ -1,0 +1,32 @@
+version: "3.9"
+services:
+  postgres_dump:
+    image: postgres:17-alpine
+    container_name: postgres_local
+    volumes:
+      - ./postgres-data/:/var/lib/postgresql/data
+      - ./sql-dump.sql:/sql-dump.sql
+      - ./seed-data.sh:/seed-data.sh
+    environment:
+      POSTGRES_USER: api-user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: tenant-database
+    ports:
+      - 5432:5432
+    command:
+      [
+        "postgres",
+        "-c",
+        "log_statement=all",
+        "-c",
+        "wal_level=logical",
+        "-c",
+        "max_replication_slots=10",
+        "-c",
+        "max_wal_senders=10",
+      ]
+    deploy:
+      resources:
+        limits:
+          cpus: "1"
+          memory: 2G
