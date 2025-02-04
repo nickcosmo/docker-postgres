@@ -1,4 +1,4 @@
-# Postgres from SQL Dump
+# Postgres Docker Image
 
 ## Steps to initialize the Postgres instance with a .sql file
 1. Copy the `.sql` file to the root of this repo and call it `sql-dump.sql`
